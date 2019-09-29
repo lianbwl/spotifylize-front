@@ -1,14 +1,14 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./App.css";
+import keys from "./keys";
 
 class App extends Component {
 	state = {
 		response: "default"
 	};
 
-	componentDidMount() {
-		// this.callApi().then(res => this.setState({ response: res.express }));
-	}
+	componentDidMount() {}
 
 	btProfile = () => {
 		this.getProfile().then(res =>
@@ -18,11 +18,22 @@ class App extends Component {
 	};
 
 	getProfile = async () => {
-		const response = await fetch("http://localhost:5000/api/profile");
-		const body = response.json();
-		console.log(body);
-
-		return body;
+		axios
+			.get("http://localhost:5000/api/profile", {
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Content-Type": "application/json"
+				}
+			})
+			.then(function(response) {
+				console.log(response);
+			})
+			.catch(function(error) {
+				console.log(error);
+			})
+			.finally(function() {
+				// always executed
+			});
 	};
 
 	render() {
@@ -30,7 +41,7 @@ class App extends Component {
 			<div className="App">
 				<header className="App-header">
 					<a href="/api/auth/spotify">Log With Spotify</a>
-					<button onClick={this.btProfile}>Log With Spotify</button>
+					<button onClick={this.getProfile}>Get Profile Info</button>
 					{this.state.response}
 				</header>
 			</div>

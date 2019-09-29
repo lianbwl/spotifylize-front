@@ -3,7 +3,13 @@ module.exports = function(app) {
 	app.use(
 		proxy("/api/auth/spotify", {
 			target: "http://localhost:5000/",
-			changeOrigin: false
+			changeOrigin: true
+		})
+	);
+	app.use(
+		proxy("/api/profile", {
+			target: "http://localhost:5000/",
+			changeOrigin: true
 		})
 	);
 };
