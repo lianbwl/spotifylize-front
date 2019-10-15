@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import "./App.css";
+import { Button } from "./styles/styles";
 import Profile from "./components/Profile";
 
 class App extends Component {
@@ -35,6 +35,7 @@ class App extends Component {
 			<div className="App">
 				<header className="App-header">
 					<a href="/api/auth/spotify">Log With Spotify</a>
+					<Button>Teste</Button>
 					<button onClick={this.handleGetProfile}>
 						Get Profile Info
 					</button>
