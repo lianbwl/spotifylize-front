@@ -1,7 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button } from "./styles/styles";
 import Profile from "./components/Profile";
+
+import { Grid, Button, Wrapper } from "./styles/styles";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./styles/theme.js";
+
+import { createGlobalStyle } from "styled-components";
+import "./styles/reset.css";
+
+const GlobalStyle = createGlobalStyle`
+	body {
+		background: ${props => props.theme.colors.forest};
+	}
+`;
 
 class App extends Component {
 	constructor() {
@@ -32,16 +44,20 @@ class App extends Component {
 
 	render() {
 		return (
-			<div className="App">
-				<header className="App-header">
-					<a href="/api/auth/spotify">Log With Spotify</a>
-					<Button>Teste</Button>
-					<button onClick={this.handleGetProfile}>
-						Get Profile Info
-					</button>
+			<ThemeProvider theme={theme}>
+				<GlobalStyle />
+				<Wrapper>
+					<Grid gap="20px">
+						<Button as="a" href="/api/auth/spotify">
+							Log With Spotify
+						</Button>
+						<Button onClick={this.handleGetProfile}>
+							Get Profile Info
+						</Button>
+					</Grid>
 					<Profile props={this.state.data}></Profile>
-				</header>
-			</div>
+				</Wrapper>
+			</ThemeProvider>
 		);
 	}
 }
