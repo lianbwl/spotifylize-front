@@ -53,20 +53,19 @@ class App extends Component {
 				<Wrapper>
 					<Grid
 						extStyles={this.externalCss}
-						gap="20px"
 						alignX="center"
 						alignY="center"
 						direction="column"
 					>
 						<Title>Spotifylize</Title>
-						<Block>
+						<Grid gap="20px">
 							<Button as="a" href="/api/auth/spotify">
 								Log With Spotify
 							</Button>
 							<Button onClick={this.handleGetProfile}>
 								Get Profile Info
 							</Button>
-						</Block>
+						</Grid>
 					</Grid>
 					<Profile props={this.state.data}></Profile>
 				</Wrapper>
