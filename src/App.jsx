@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Profile from "./components/Profile";
 
-import { Grid, Button, Wrapper } from "./styles/styles";
+import { Grid, Button, Wrapper, Title, Block } from "./styles/styles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme.js";
 
@@ -20,6 +20,10 @@ class App extends Component {
 		super();
 		this.state = {
 			data: []
+		};
+		this.externalCss = {
+			paddingTop: "100px",
+			marginBottom: "100px"
 		};
 	}
 
@@ -47,13 +51,22 @@ class App extends Component {
 			<ThemeProvider theme={theme}>
 				<GlobalStyle />
 				<Wrapper>
-					<Grid gap="20px">
-						<Button as="a" href="/api/auth/spotify">
-							Log With Spotify
-						</Button>
-						<Button onClick={this.handleGetProfile}>
-							Get Profile Info
-						</Button>
+					<Grid
+						extStyles={this.externalCss}
+						gap="20px"
+						alignX="center"
+						alignY="center"
+						direction="column"
+					>
+						<Title>Spotifylize</Title>
+						<Block>
+							<Button as="a" href="/api/auth/spotify">
+								Log With Spotify
+							</Button>
+							<Button onClick={this.handleGetProfile}>
+								Get Profile Info
+							</Button>
+						</Block>
 					</Grid>
 					<Profile props={this.state.data}></Profile>
 				</Wrapper>
