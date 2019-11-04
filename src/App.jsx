@@ -12,8 +12,14 @@ import "./styles/reset.css";
 const GlobalStyle = createGlobalStyle`
 	body {
 		background: ${props => props.theme.colors.forest};
+		color: ${props => props.theme.colors.coral};
 	}
 `;
+
+const ExternalCss = {
+	paddingTop: "100px",
+	marginBottom: "100px"
+};
 
 class App extends Component {
 	constructor() {
@@ -52,10 +58,11 @@ class App extends Component {
 				<GlobalStyle />
 				<Wrapper>
 					<Grid
-						extStyles={this.externalCss}
+						extStyles={ExternalCss}
 						alignX="center"
 						alignY="center"
 						direction="column"
+						flex="1 1 40%"
 					>
 						<Title>Spotifylize</Title>
 						<Grid gap="20px">
@@ -67,7 +74,11 @@ class App extends Component {
 							</Button>
 						</Grid>
 					</Grid>
-					<Profile props={this.state.data}></Profile>
+					<Grid direction="row" alignX="center" alignY="center">
+						<Grid flex="0 1 40%">
+							<Profile props={this.state.data}></Profile>
+						</Grid>
+					</Grid>
 				</Wrapper>
 			</ThemeProvider>
 		);
