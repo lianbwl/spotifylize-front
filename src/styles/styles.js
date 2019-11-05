@@ -65,6 +65,7 @@ export const Button = styled.button`
 
 export const List = styled.ul`
 	list-style: ${props => props.style || "none"};
+	width: ${props => props.width || "auto"};
 
 	// EXTERNAL CSS TO BE INJECTED;
 	${props => props.extStyles};
@@ -73,10 +74,28 @@ export const List = styled.ul`
 export const ListItem = styled.li`
 	display: list-item;
 	margin-bottom: ${props => props.marginBotton || "20px"};
+
+	// EXTERNAL CSS TO BE INJECTED;
+	${props => props.extStyles};
 `;
 
 export const Picture = styled.picture`
 	line-height: 0;
 	border: solid ${props => props.borderWidth || sizeBase * 0.2 + `px`}
 		${props => props.theme.colors.coral};
+
+	// EXTERNAL CSS TO BE INJECTED;
+	${props => props.extStyles};
+`;
+
+export const Chips = styled.span`
+	padding: ${sizeBase * 0.6}px ${sizeBase * 1.2}px;
+	border: 1px solid ${props => props.theme.colors.coral};
+	border-radius: ${sizeBase * 0.6}px;
+	margin-right: ${sizeBase * 0.6}px;
+	display: ${props => props.display || "inline-block"};
+	flex: ${props => props.width || "0 1 auto"};
+
+	// EXTERNAL CSS TO BE INJECTED;
+	${props => props.extStyles};
 `;

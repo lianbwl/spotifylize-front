@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Profile from "./components/Profile";
 
-import { Grid, Button, Wrapper, Title, Block } from "./styles/styles";
+import { Grid, Button, Wrapper, Title } from "./styles/styles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme.js";
 
