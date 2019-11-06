@@ -25,7 +25,9 @@ class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			data: []
+			data: [],
+			playlists: [],
+			tracks: []
 		};
 		this.externalCss = {
 			paddingTop: "100px",
@@ -41,6 +43,18 @@ class App extends Component {
 		});
 	};
 
+	handlePlaylists = () => {
+		this.getPlaylists().then(res => {
+			this.setState({ playlists: res.data });
+		});
+	};
+
+	handleTracks = id => {
+		this.getTracks(id).then(res => {
+			this.setState({ tracks: res.data });
+		});
+	};
+
 	getProfile = async () => {
 		const req = await axios.get("http://localhost:5000/api/profile", {
 			headers: {
@@ -48,6 +62,31 @@ class App extends Component {
 				"Content-Type": "application/json"
 			}
 		});
+
+		return req;
+	};
+
+	getPlaylists = async () => {
+		const req = await axios.get("http://localhost:5000/api/playlists", {
+			headers: {
+				"Access-Control-Allow-Origin": "*",
+				"Content-Type": "application/json"
+			}
+		});
+
+		return req;
+	};
+
+	getTracks = async id => {
+		const req = await axios.get(
+			"http://localhost:5000/api/playlist/" + id,
+			{
+				headers: {
+					"Access-Control-Allow-Origin": "*",
+					"Content-Type": "application/json"
+				}
+			}
+		);
 
 		return req;
 	};
@@ -69,6 +108,9 @@ class App extends Component {
 							<Button as="a" href="/api/auth/spotify">
 								Log With Spotify
 							</Button>
+							<Button onClick={this.handlePlaylists}>
+								Get Playlists
+							</Button>
 							<Button onClick={this.handleGetProfile}>
 								Get Profile Info
 							</Button>
@@ -76,7 +118,11 @@ class App extends Component {
 					</Grid>
 					<Grid direction="row" alignX="center" alignY="center">
 						<Grid flex="0 1 40%">
-							<Profile props={this.state.data}></Profile>
+							<Profile
+								profile={this.state.data}
+								playlists={this.state.playlists}
+								itemClick={this.handleTracks}
+							></Profile>
 						</Grid>
 					</Grid>
 				</Wrapper>
