@@ -5,6 +5,7 @@ const sizeBase = 10;
 export const Grid = styled.div`
 	display: flex;
 	height: auto;
+	width: ${props => props.width || "auto"};
 	flex: ${props => props.flex || "0 1 auto"};
 	flex-direction: ${props => props.direction || "row"};
 
@@ -22,7 +23,7 @@ export const Wrapper = styled.section`
 	width: ${props => props.width || "90%"};
 	height: ${props => props.height || "auto"};
 	margin: 0 auto;
-	padding: 20px;
+	padding: ${sizeBase * 2}px;
 	background: ${props => props.theme.colors.forest};
 
 	// EXTERNAL CSS TO BE INJECTED;
@@ -50,7 +51,7 @@ export const Button = styled.button`
 	cursor: pointer;
 	border: solid 1px ${props => props.theme.colors.coral};
 	color: ${props => props.theme.colors.coral};
-	padding: 12px;
+	padding: ${sizeBase * 1.2}px;
 	background: none;
 	flex: ${props => props.flexSize || "0 1 auto"};
 
@@ -95,6 +96,21 @@ export const Chips = styled.span`
 	margin-right: ${sizeBase * 0.6}px;
 	display: ${props => props.display || "inline-block"};
 	flex: ${props => props.width || "0 1 auto"};
+
+	// EXTERNAL CSS TO BE INJECTED;
+	${props => props.extStyles};
+`;
+
+export const SelectBox = styled.select`
+	width: 100%;
+	padding: ${sizeBase * 1.2}px ${sizeBase * 2}px;
+	cursor: pointer;
+	border: none;
+	color: ${props => props.theme.colors.white};
+	background: ${props => props.theme.colors.coral};
+	text-align: center;
+	appearance: none;
+	border: solid 1px ${props => props.theme.colors.coral};
 
 	// EXTERNAL CSS TO BE INJECTED;
 	${props => props.extStyles};

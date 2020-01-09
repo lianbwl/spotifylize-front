@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Profile from "./components/Profile";
 
-import { Grid, Button, Wrapper, Title } from "./styles/styles";
+import { Grid, Button, Wrapper, Title, SelectBox } from "./styles/styles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme.js";
 
@@ -16,9 +16,27 @@ const GlobalStyle = createGlobalStyle`
 	}
 `;
 
-const ExternalCss = {
+const externalCssMainGrid = {
 	paddingTop: "100px",
 	marginBottom: "100px"
+};
+
+const externalCssInnerGrid = {
+	marginBottom: "40px"
+};
+
+const SelectField = ({ options, evtChange }) => {
+	return (
+		<SelectBox onChange={e => evtChange(e.target.value)}>
+			{options.map((i, index) => {
+				return (
+					<option key={index} value={i.value}>
+						{i.name}
+					</option>
+				);
+			})}
+		</SelectBox>
+	);
 };
 
 class App extends Component {
@@ -27,11 +45,11 @@ class App extends Component {
 		this.state = {
 			data: [],
 			playlists: [],
-			tracks: []
-		};
-		this.externalCss = {
-			paddingTop: "100px",
-			marginBottom: "100px"
+			tracks: [],
+			options: [
+				{ name: "Spotify", value: 1 },
+				{ name: "Deezer", value: 2 }
+			]
 		};
 	}
 
@@ -91,22 +109,37 @@ class App extends Component {
 		return req;
 	};
 
+	selectChange = val => {
+		console.log(val);
+	};
+
 	render() {
 		return (
 			<ThemeProvider theme={theme}>
 				<GlobalStyle />
 				<Wrapper>
 					<Grid
-						extStyles={ExternalCss}
+						extStyles={externalCssMainGrid}
 						alignX="center"
 						alignY="center"
 						direction="column"
-						flex="1 1 40%"
-					>
+						flex="1 1 40%">
 						<Title>Spotifylize</Title>
+						<Grid
+							gap="20px"
+							extStyles={externalCssInnerGrid}
+							width="40%">
+							<SelectField
+								options={this.state.options}
+								evtChange={this.selectChange}></SelectField>
+
+							<SelectField
+								options={this.state.options}
+								evtChange={this.selectChange}></SelectField>
+						</Grid>
 						<Grid gap="20px">
 							<Button as="a" href="/api/auth/spotify">
-								Log With Spotify
+								Login
 							</Button>
 							<Button onClick={this.handlePlaylists}>
 								Get Playlists
@@ -121,8 +154,7 @@ class App extends Component {
 							<Profile
 								profile={this.state.data}
 								playlists={this.state.playlists}
-								itemClick={this.handleTracks}
-							></Profile>
+								itemClick={this.handleTracks}></Profile>
 						</Grid>
 					</Grid>
 				</Wrapper>
